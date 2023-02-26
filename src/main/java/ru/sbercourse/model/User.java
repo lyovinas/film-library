@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class User extends GenericModel{
 
     @Column(name = "login", nullable = false)
@@ -52,7 +52,8 @@ public class User extends GenericModel{
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_USERS_ROLES"), nullable = false)
     private Role role;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "user", orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+            cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Order> orders;
 }

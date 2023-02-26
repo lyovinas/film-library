@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class Role extends GenericModel{
 
     @Column(name = "title", nullable = false)
@@ -22,6 +22,7 @@ public class Role extends GenericModel{
     @Column(name = "description")
     private String description;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 }

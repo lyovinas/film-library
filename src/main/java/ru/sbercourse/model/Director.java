@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class Director extends GenericModel{
 
     @Column(name = "directors_fio", nullable = false)
@@ -22,6 +22,7 @@ public class Director extends GenericModel{
     @Column(name = "position", nullable = false)
     private String position;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "directors")
     private Set<Film> films;
 }
