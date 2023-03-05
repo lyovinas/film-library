@@ -1,4 +1,4 @@
-package ru.sbercourse.model;
+package ru.sbercourse.filmlibrary.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +14,6 @@ import lombok.ToString;
 public class GenericModel {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_gen")
     private Long id;
 }

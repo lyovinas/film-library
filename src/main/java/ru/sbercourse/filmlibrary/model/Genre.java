@@ -1,4 +1,4 @@
-package ru.sbercourse.model;
+package ru.sbercourse.filmlibrary.model;
 
 public enum Genre {
     FANTASY("Фантастика"),

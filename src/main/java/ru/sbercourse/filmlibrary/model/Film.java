@@ -1,5 +1,7 @@
-package ru.sbercourse.model;
+package ru.sbercourse.filmlibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@SequenceGenerator(name = "default_gen", sequenceName = "films_seq", allocationSize = 1)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "jsonId")
 public class Film extends GenericModel{
 
     @Column(name = "title", nullable = false)
