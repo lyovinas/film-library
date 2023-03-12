@@ -28,10 +28,10 @@ public class Order extends GenericModel{
     @JoinColumn(name = "film_id", foreignKey = @ForeignKey(name = "FK_ORDERS_FILMS"), nullable = false)
     private Film film;
 
-    @Column(name = "rent_date", nullable = false)
+    @Column(name = "rent_date")
     private LocalDate rentDate;
 
-    @Column(name = "rent_period", nullable = false)
+    @Column(name = "rent_period")
     private Integer rentPeriod;
 
     @Column(name = "purchase", nullable = false)

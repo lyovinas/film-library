@@ -1,4 +1,4 @@
-package ru.sbercourse.filmlibrary.swagger;
+package ru.sbercourse.filmlibrary.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @MappedSuperclass
 @NoArgsConstructor
 @Getter
@@ -16,4 +18,10 @@ public class GenericModel {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_gen")
     private Long id;
+
+    @Column(name = "created_when")
+    protected LocalDateTime createdWhen;
+
+    @Column(name = "created_by")
+    protected String createdBy;
 }
