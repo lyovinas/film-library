@@ -22,4 +22,24 @@ public class GenericDto {
     @Schema(description = "Пользователь, создавший запись", example = "DEFAULT_USER",
             accessMode = Schema.AccessMode.READ_ONLY)
     protected String createdBy;
+
+    @Schema(description = "Флаг софт удаления записи",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    protected boolean isDeleted = false;
+
+    @Schema(description = "Дата/время софт удаления записи",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    protected LocalDateTime deletedWhen;
+
+    @Schema(description = "Пользователь, пометивший запись на удаление", example = "DEFAULT_USER",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    protected String deletedBy;
+
+    @Schema(description = "Дата/время изменения записи",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    protected LocalDateTime updatedWhen;
+
+    @Schema(description = "Пользователь, изменивший запись", example = "DEFAULT_USER",
+            accessMode = Schema.AccessMode.READ_ONLY)
+    protected String updatedBy;
 }

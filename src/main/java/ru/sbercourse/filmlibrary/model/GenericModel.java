@@ -24,4 +24,19 @@ public class GenericModel {
 
     @Column(name = "created_by")
     protected String createdBy;
+
+    @Column(name = "is_deleted")
+    protected boolean isDeleted = false;
+
+    @Column(name = "deleted_when")
+    protected LocalDateTime deletedWhen;
+
+    @Column(name = "deleted_by")
+    protected String deletedBy;
+
+    @Column(name = "updated_when")
+    protected LocalDateTime updatedWhen;
+
+    @Column(name = "updated_by")
+    protected String updatedBy;
 }

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.sbercourse.filmlibrary.model.Order;
 import ru.sbercourse.filmlibrary.model.Role;
 import ru.sbercourse.filmlibrary.model.User;
-import ru.sbercourse.filmlibrary.repository.GenericRepository;
+import ru.sbercourse.filmlibrary.repository.UserRepository;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ public class UserService extends GenericService<User> {
 
   private final RoleService roleService;
 
-  protected UserService(GenericRepository<User> repository, RoleService roleService) {
-    super(repository);
+  protected UserService(UserRepository userRepository, RoleService roleService) {
+    super(userRepository);
     this.roleService = roleService;
   }
 

@@ -58,7 +58,8 @@ public class OrderController extends GenericController<Order, OrderDto> {
         return ResponseEntity.ok(filmMapper.toDtos(userService.getOrders(userId)
                 .stream().filter(o -> !o.isPurchase())
                 .map(Order::getFilm)
-                .toList()));
+                .collect(Collectors.toSet())
+                .stream().toList()));
     }
 
     @Operation(description = "Получить список купленных фильмов у пользователя")
@@ -67,7 +68,8 @@ public class OrderController extends GenericController<Order, OrderDto> {
         return ResponseEntity.ok(filmMapper.toDtos(userService.getOrders(userId)
                 .stream().filter(Order::isPurchase)
                 .map(Order::getFilm)
-                .toList()));
+                .collect(Collectors.toSet())
+                .stream().toList()));
     }
 
 

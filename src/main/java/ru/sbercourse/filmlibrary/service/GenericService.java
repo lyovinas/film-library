@@ -1,5 +1,7 @@
 package ru.sbercourse.filmlibrary.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.webjars.NotFoundException;
 import ru.sbercourse.filmlibrary.model.GenericModel;
 import ru.sbercourse.filmlibrary.repository.GenericRepository;
@@ -19,6 +21,10 @@ public abstract class GenericService<T extends GenericModel> {
     return repository.findAll();
   }
 
+  public Page<T> listAll(Pageable pageable) {
+    return repository.findAll(pageable);
+  }
+
   public T getOne(Long id) {
     return repository.findById(id).orElseThrow(() ->
             new NotFoundException("Запись с переданным id не найдена"));
@@ -36,6 +42,22 @@ public abstract class GenericService<T extends GenericModel> {
 
   public void delete(Long id) {
     repository.deleteById(id);
+  }
+
+  public void softDelete(Long id) {
+    T object = getOne(id);
+    object.setDeleted(true);
+    object.setDeletedBy("ADMIN");
+    object.setDeletedWhen(LocalDateTime.now());
+    update(object);
+  }
+
+  public void restore(Long id) {
+    T object = getOne(id);
+    object.setDeleted(false);
+    object.setDeletedBy(null);
+    object.setDeletedWhen(null);
+    update(object);
   }
 
   public boolean existsById(Long id) {
