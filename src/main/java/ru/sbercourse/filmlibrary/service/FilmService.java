@@ -9,7 +9,6 @@ import ru.sbercourse.filmlibrary.dto.AddFilmDirectorDto;
 import ru.sbercourse.filmlibrary.dto.FilmSearchDTO;
 import ru.sbercourse.filmlibrary.dto.FilmWithDirectorsDto;
 import ru.sbercourse.filmlibrary.mapper.FilmWithDirectorsMapper;
-import ru.sbercourse.filmlibrary.model.Director;
 import ru.sbercourse.filmlibrary.model.Film;
 import ru.sbercourse.filmlibrary.repository.FilmRepository;
 

@@ -25,6 +25,7 @@ public class DirectorService extends GenericService<Director> {
 
 
   @Override
+//  @Secured(value = "ROLE_" + MANAGER)
   public Director update(Director newDirector) {
     Director existingDirector = getOne(newDirector.getId());
     if (newDirector.getDirectorsFio() != null) existingDirector.setDirectorsFio(newDirector.getDirectorsFio());

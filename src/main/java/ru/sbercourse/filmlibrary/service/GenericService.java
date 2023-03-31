@@ -2,12 +2,15 @@ package ru.sbercourse.filmlibrary.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.webjars.NotFoundException;
 import ru.sbercourse.filmlibrary.model.GenericModel;
 import ru.sbercourse.filmlibrary.repository.GenericRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static ru.sbercourse.filmlibrary.constants.UserRolesConstants.ADMIN;
 
 public abstract class GenericService<T extends GenericModel> {
 
@@ -31,12 +34,14 @@ public abstract class GenericService<T extends GenericModel> {
   }
 
   public T create(T object) {
-    object.setCreatedBy("ADMIN");
+    object.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
     object.setCreatedWhen(LocalDateTime.now());
     return repository.save(object);
   }
 
   public T update(T object) {
+    object.setUpdatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+    object.setUpdatedWhen(LocalDateTime.now());
     return repository.save(object);
   }
 
@@ -47,7 +52,7 @@ public abstract class GenericService<T extends GenericModel> {
   public void softDelete(Long id) {
     T object = getOne(id);
     object.setDeleted(true);
-    object.setDeletedBy("ADMIN");
+    object.setDeletedBy(SecurityContextHolder.getContext().getAuthentication().getName());
     object.setDeletedWhen(LocalDateTime.now());
     update(object);
   }

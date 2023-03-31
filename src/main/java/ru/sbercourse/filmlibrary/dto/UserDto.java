@@ -32,7 +32,7 @@ public class UserDto extends GenericDto {
 
     private String email;
 
-    private LocalDateTime createdWhen;
+//    private LocalDateTime createdWhen;
 
     private Role role;
 

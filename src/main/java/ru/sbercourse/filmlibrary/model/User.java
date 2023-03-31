@@ -49,8 +49,8 @@ public class User extends GenericModel{
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "created_when", nullable = false)
-    private LocalDateTime createdWhen;
+//    @Column(name = "created_when", nullable = false)
+//    private LocalDateTime createdWhen;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_USERS_ROLES"), nullable = false)

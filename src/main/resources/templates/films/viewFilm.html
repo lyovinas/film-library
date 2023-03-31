@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 
 <head>
@@ -42,7 +43,8 @@
     <form class="row g-1">
       <div class="mt-3 mb-3">
           <h5 style="color: grey">Создатели фильма:</h5>
-          <a th:href="'/films/addDirector/' + ${film.getId()}" class="btn btn-sm btn-outline-success">Добавить создателя</a>
+          <a  sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
+              th:href="'/films/addDirector/' + ${film.getId()}" class="btn btn-sm btn-outline-success">Добавить создателя</a>
       </div>
       <div th:each="director : ${film.getDirectors()}">
         <div class="row">
@@ -61,7 +63,7 @@
     </form>
     <hr class="hr"/>
     <div class="mt-2">
-      <button type="submit" class="btn btn-primary">Арендовать</button>
+      <button type="submit" class="btn btn-primary" sec:authorize="isAuthenticated() && !hasRole('ADMIN')">Арендовать</button>
       <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
     </div>
   </div>

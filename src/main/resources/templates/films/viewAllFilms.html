@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 
 <head>
@@ -48,7 +49,8 @@
         <h2>Все фильмы фильмотеки</h2>
       </div>
       <div class="col">
-        <a href="/films/add"
+        <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
+           href="/films/add"
            class="btn btn-success"
            role="button"
            style="float: right"
@@ -81,13 +83,14 @@
             </ul>
           </td>
           <td>
-            <div>
+            <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
               <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}" style="float: right">Редактировать</a>
               <a th:if="${!film.isDeleted()}" class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}"
                  onclick="return confirm('Вы действительно хотите удалить создателя?');" style="float: right">Удалить</a>
               <a th:if="${film.isDeleted()}" class="btn btn-sm btn-outline-warning" th:href="'/films/restore/' + ${film.id}" style="float: right">Восстановить</a>
             </div>
-<!--            <a class="btn btn-sm btn-outline-success" th:href="'/publish/getFilm/' + ${film.id}">Арендовать фильм</a>-->
+            <a sec:authorize="isAuthenticated() && !hasRole('ADMIN')" class="btn btn-sm btn-outline-success"
+               th:href="'/publish/getFilm/' + ${film.id}">Арендовать фильм</a>
           </td>
         </tr>
         </tbody>
