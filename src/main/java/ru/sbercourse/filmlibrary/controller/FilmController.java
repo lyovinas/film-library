@@ -19,7 +19,7 @@ import ru.sbercourse.filmlibrary.service.FilmService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/film")
+@RequestMapping("/rest/films")
 @Tag(name = "Фильмы", description = "Контроллер для работы с фильмами в фильмотеке")
 public class FilmController extends GenericController<Film, FilmDto> {
     private final FilmService filmService;

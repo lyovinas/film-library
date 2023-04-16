@@ -11,7 +11,9 @@
 
 <body>
 <div layout:fragment="content">
+
   <hr class="hr"/>
+
   <h3>Поиск фильма</h3>
   <form method="POST" th:action="@{/films/search}" th:object="${filmSearchForm}">
     <div class="mt-0 row g-2">
@@ -42,7 +44,9 @@
       </div>
     </div>
   </form>
+
   <hr class="mt-3 hr"/>
+
   <div class="mt-5">
     <div class="row">
       <div class="col">
@@ -71,9 +75,10 @@
         </thead>
         <tbody>
         <tr th:each="film : ${films}">
-          <td>
-            <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}" th:text="${film.getTitle()}"></a>
-          </td>
+<!--          <td>-->
+<!--            <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}" th:text="${film.getTitle()}"></a>-->
+<!--          </td>-->
+          <td th:text="${film.getTitle()}"></td>
           <td th:text="${film.getPremierYear()}"></td>
           <td th:text="${film.getCountry()}"></td>
           <td th:text="${film.getGenre().getGenreTextDisplay()}"></td>
@@ -83,14 +88,16 @@
             </ul>
           </td>
           <td>
+            <a sec:authorize="isAuthenticated() && !(hasRole('ADMIN') || hasRole('MANAGER'))" class="btn btn-success"
+               th:href="'/films/' + ${film.id}" style="float: right">Заказать</a>
+            <a sec:authorize="!isAuthenticated()" class="btn btn-success" th:href="'/login'" style="float: right">Заказать</a>
             <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
-              <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}" style="float: right">Редактировать</a>
+              <a class="btn btn-sm btn-outline-success ms-2" th:href="'/films/' + ${film.id}" style="float: right">Подробнее</a>
+              <a class="btn btn-sm btn-outline-success ms-2" th:href="'/films/update/' + ${film.id}" style="float: right">Редактировать</a>
               <a th:if="${!film.isDeleted()}" class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}"
-                 onclick="return confirm('Вы действительно хотите удалить создателя?');" style="float: right">Удалить</a>
+                 onclick="return confirm('Вы действительно хотите удалить фильм?');" style="float: right">Удалить</a>
               <a th:if="${film.isDeleted()}" class="btn btn-sm btn-outline-warning" th:href="'/films/restore/' + ${film.id}" style="float: right">Восстановить</a>
             </div>
-            <a sec:authorize="isAuthenticated() && !hasRole('ADMIN')" class="btn btn-sm btn-outline-success"
-               th:href="'/publish/getFilm/' + ${film.id}">Арендовать фильм</a>
           </td>
         </tr>
         </tbody>

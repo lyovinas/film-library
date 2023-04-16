@@ -2,6 +2,7 @@ package ru.sbercourse.filmlibrary.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import ru.sbercourse.filmlibrary.service.GenericService;
 
 import java.util.List;
 
+@SecurityRequirement(name = "Bearer Authentication")
 public abstract class GenericController<E extends GenericModel, D extends GenericDto> {
     protected GenericService<E> service;
     protected GenericMapper<E, D> mapper;
@@ -20,7 +22,7 @@ public abstract class GenericController<E extends GenericModel, D extends Generi
 
     @Operation(summary = "Получить все записи", description = "Позволяет получить полный список записей",
             method = "getAll")
-    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<D>> getAll() {
         List<E> resultingList = service.listAll();
         return resultingList.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).build()
@@ -63,6 +65,18 @@ public abstract class GenericController<E extends GenericModel, D extends Generi
             service.delete(id);
             return ResponseEntity.ok().build();
         } else return ResponseEntity.notFound().build();
+    }
+
+    @Operation(summary = "Софт удаление по ID", description = "Позволяет пометить запись на удаление по заданному ID")
+    @DeleteMapping(value = "/softDelete/{id}")
+    public void softDelete(@PathVariable(value = "id") Long id) {
+        service.softDelete(id);
+    }
+
+    @Operation(summary = "Восстановление записи по ID", description = "Позволяет убрать метку записи на удаление по заданному ID")
+    @PutMapping(value = "/restore/{id}")
+    public void restore(@PathVariable(value = "id") Long id) {
+        service.restore(id);
     }
 
 

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/rest/orders")
 @Tag(name = "Заказы", description = "Контроллер для работы с заказами пользователей фильмотеки")
 public class OrderController extends GenericController<Order, OrderDto> {
 

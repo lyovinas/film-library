@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.sbercourse.filmlibrary.model.Film;
 
+import java.util.List;
+
 @Repository
 public interface FilmRepository extends GenericRepository<Film> {
 
@@ -26,4 +28,6 @@ public interface FilmRepository extends GenericRepository<Film> {
             @Param(value = "title") String title,
             @Param(value = "fio") String fio,
             Pageable pageable);
+
+    List<Film> getByTitle(String title);
 }

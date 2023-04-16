@@ -11,7 +11,7 @@
 <body>
 <div layout:fragment="content">
   <h1>Редактировать профиль</h1>
-  <form method="POST" th:action="@{/users/profile/update}" th:object="${userForm}" style="margin: 0 auto">
+  <form class="needs-validation" method="POST" th:action="@{/users/profile/update}" th:object="${userForm}" style="margin: 0 auto">
     <input type="hidden" name="id"
            th:value="${user.id}">
     <div class="row">

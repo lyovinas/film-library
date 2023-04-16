@@ -1,5 +1,6 @@
 package ru.sbercourse.filmlibrary.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto extends GenericDto {
 
     private String login;
@@ -32,7 +34,7 @@ public class UserDto extends GenericDto {
 
     private String email;
 
-//    private LocalDateTime createdWhen;
+    private String changePasswordToken;
 
     private Role role;
 

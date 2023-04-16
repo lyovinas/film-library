@@ -18,8 +18,11 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/directors">Создатели</a>
           </li>
-          <li sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))" class="nav-item">
+          <li sec:authorize="isAuthenticated() && hasRole('ADMIN')" class="nav-item">
             <a class="nav-link" aria-current="page" href="/users">Пользователи</a>
+          </li>
+          <li sec:authorize="isAuthenticated() && hasRole('USER')" class="nav-item">
+            <a class="nav-link" aria-current="page" href="/orders/user">Мои фильмы</a>
           </li>
         </ul>
         <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">

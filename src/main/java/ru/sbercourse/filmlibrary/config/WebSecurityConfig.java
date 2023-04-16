@@ -17,8 +17,7 @@ import ru.sbercourse.filmlibrary.service.userdetails.CustomUserDetailsService;
 import java.util.Arrays;
 
 import static ru.sbercourse.filmlibrary.constants.SecurityConstants.*;
-import static ru.sbercourse.filmlibrary.constants.UserRolesConstants.ADMIN;
-import static ru.sbercourse.filmlibrary.constants.UserRolesConstants.MANAGER;
+import static ru.sbercourse.filmlibrary.constants.UserRolesConstants.*;
 
 @Configuration
 @EnableWebSecurity
@@ -55,12 +54,16 @@ public class WebSecurityConfig {
         .authorizeHttpRequests((requests) ->
             requests
                 .requestMatchers(RESOURCES_WHITE_LIST.toArray(String[]::new)).permitAll()
+
                 .requestMatchers(FILMS_WHITE_LIST.toArray(String[]::new)).permitAll()
                 .requestMatchers(DIRECTORS_WHITE_LIST.toArray(String[]::new)).permitAll()
                 .requestMatchers(USERS_WHITE_LIST.toArray(String[]::new)).authenticated()
+                .requestMatchers(ORDERS_WHITE_LIST.toArray(String[]::new)).hasAnyRole(USER)
+
                 .requestMatchers(FILMS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN, MANAGER)
                 .requestMatchers(DIRECTORS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN, MANAGER)
-                .requestMatchers(USERS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN, MANAGER)
+                .requestMatchers(USERS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN)
+                .requestMatchers(ORDERS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN, MANAGER)
         )
         .formLogin((form) -> form
             .loginPage("/login")

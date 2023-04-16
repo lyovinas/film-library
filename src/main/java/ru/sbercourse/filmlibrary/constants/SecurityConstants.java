@@ -3,12 +3,76 @@ package ru.sbercourse.filmlibrary.constants;
 import java.util.List;
 
 public interface SecurityConstants {
+  class REST {
+    public static List<String> FILMS_WHITE_LIST = List.of(
+            "/rest/films",
+            "/rest/films/getById"
+    );
+
+    public static List<String> DIRECTORS_WHITE_LIST = List.of("" +
+            "/rest/directors",
+            "/rest/directors/getById"
+    );
+
+    public static List<String> ORDERS_WHITE_LIST = List.of("" +
+            "/rest/orders",
+            "/rest/orders/getById"
+    );
+
+    public static List<String> USERS_WHITE_LIST = List.of(
+            "/rest/users/auth"
+    );
+
+    public static List<String> FILMS_PERMISSION_LIST = List.of("/rest/films/add",
+            "/rest/films/create",
+            "/rest/films/update",
+            "/rest/films/deleteById",
+            "/rest/films/softDelete/{id}",
+            "/rest/films/restore/{id}",
+            "/rest/films/addDirector",
+            "/rest/films/getFilmsWithDirectors"
+    );
+
+    public static List<String> DIRECTORS_PERMISSION_LIST = List.of(
+            "/rest/directors/create",
+            "/rest/directors/update",
+            "/rest/directors/deleteById",
+            "/rest/directors/softDelete/{id}",
+            "/rest/directors/restore/{id}",
+            "/rest/directors/addFilm",
+            "/rest/directors/getDirectorsWithFilms"
+    );
+
+    public static List<String> ORDERS_PERMISSION_LIST = List.of(
+            "/rest/orders/create",
+            "/rest/orders/update",
+            "/rest/orders/deleteById",
+            "/rest/orders/softDelete/{id}",
+            "/rest/orders/restore/{id}",
+            "/rest/orders/getOrdersByUserId/{userId}",
+            "/rest/orders/getRentedAndPurchasedFilmsByUserId/{userId}",
+            "/rest/orders/getRentedFilmsByUserId/{userId}",
+            "/rest/orders/getPurchasedFilmsByUserId/{userId}"
+    );
+
+    public static List<String> USERS_PERMISSION_LIST = List.of(
+            "/rest/users",
+            "/rest/users/getById",
+            "/rest/users/create",
+            "/rest/users/update",
+            "/rest/users/deleteById",
+            "/rest/users/softDelete/{id}",
+            "/rest/users/restore/{id}"
+    );
+  }
+
   List<String> RESOURCES_WHITE_LIST = List.of(
       "/resources/**",
       "/js/**",
       "/css/**",
       "/",
       "/login",
+      "/users/auth",
       "/users/registration",
       "/users/remember-password",
       "/users/change-password",
@@ -48,7 +112,8 @@ public interface SecurityConstants {
       "/directors/update/{id}",
       "/directors/update",
       "/directors/addFilm/{directorId}",
-      "/directors/addFilm"
+      "/directors/addFilm",
+      "/directors/softDelete/{id}"
   );
 
   List<String> USERS_WHITE_LIST = List.of(
@@ -62,5 +127,18 @@ public interface SecurityConstants {
       "/users/add",
       "/users/delete",
       "/users/add-manager"
+  );
+
+  List<String> ORDERS_WHITE_LIST = List.of(
+      "/orders/user",
+      "/orders/rentFilm/{filmId}",
+      "/orders/rentFilm",
+      "/orders/purchaseFilm/{filmId}"
+//      "/orders/delete/{id}"
+  );
+
+  List<String> ORDERS_PERMISSION_LIST = List.of(
+      "/orders/delete/{id}",
+      "/orders/restore/{id}"
   );
 }

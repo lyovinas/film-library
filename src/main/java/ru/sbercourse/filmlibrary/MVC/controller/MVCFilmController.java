@@ -7,15 +7,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.sbercourse.filmlibrary.dto.AddFilmDirectorDto;
-import ru.sbercourse.filmlibrary.dto.FilmDto;
-import ru.sbercourse.filmlibrary.dto.FilmSearchDTO;
-import ru.sbercourse.filmlibrary.dto.FilmWithDirectorsDto;
+import ru.sbercourse.filmlibrary.dto.*;
 import ru.sbercourse.filmlibrary.mapper.FilmMapper;
 import ru.sbercourse.filmlibrary.mapper.FilmWithDirectorsMapper;
+import ru.sbercourse.filmlibrary.mapper.OrderMapper;
 import ru.sbercourse.filmlibrary.model.Film;
 import ru.sbercourse.filmlibrary.service.DirectorService;
 import ru.sbercourse.filmlibrary.service.FilmService;
+import ru.sbercourse.filmlibrary.service.OrderService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/films")
@@ -25,15 +26,19 @@ public class MVCFilmController {
     private final DirectorService directorService;
     private final FilmMapper filmMapper;
     private final FilmWithDirectorsMapper filmWithDirectorsMapper;
+    private final OrderService orderService;
+    private final OrderMapper orderMapper;
 
 
 
     public MVCFilmController(FilmService filmService, DirectorService directorService,
-                             FilmMapper filmMapper, FilmWithDirectorsMapper filmWithDirectorsMapper) {
+                             FilmMapper filmMapper, FilmWithDirectorsMapper filmWithDirectorsMapper, OrderService orderService, OrderMapper orderMapper) {
         this.filmService = filmService;
         this.directorService = directorService;
         this.filmMapper = filmMapper;
         this.filmWithDirectorsMapper = filmWithDirectorsMapper;
+        this.orderService = orderService;
+        this.orderMapper = orderMapper;
     }
 
 
@@ -52,10 +57,11 @@ public class MVCFilmController {
         return "films/viewAllFilms";
     }
 
-    @GetMapping("/{id}")
-    public String viewOneFilm(@PathVariable Long id, Model model) {
-        model.addAttribute("film", filmWithDirectorsMapper.toDto(filmService.getOne(id)));
-        return "/films/viewFilm";
+    @GetMapping("/{filmId}")
+    public String viewOneFilm(@PathVariable Long filmId, Model model) {
+        model.addAttribute("film", filmWithDirectorsMapper.toDto(filmService.getOne(filmId)));
+        model.addAttribute("order", orderMapper.toDto(orderService.getUserOrder(filmId)));
+        return "films/viewFilm";
     }
 
     @GetMapping("/add")
@@ -99,7 +105,9 @@ public class MVCFilmController {
                               @ModelAttribute("filmSearchForm") FilmSearchDTO filmSearchDTO,
                               Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "title"));
-        model.addAttribute("films", filmService.findFilms(filmSearchDTO, pageRequest));
+        Page<Film> filmPage = filmService.findFilms(filmSearchDTO, pageRequest);
+        List<FilmWithDirectorsDto> result = filmWithDirectorsMapper.toDtos(filmPage.getContent());
+        model.addAttribute("films", new PageImpl<>(result, pageRequest, filmPage.getTotalElements()));
         return "films/viewAllFilms";
     }
 

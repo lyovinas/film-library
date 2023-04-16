@@ -19,7 +19,7 @@ import ru.sbercourse.filmlibrary.service.FilmService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/director")
+@RequestMapping("/rest/directors")
 @Tag(name = "Создатели", description = "Контроллер для работы с создателями фильмов")
 public class DirectorController extends GenericController<Director, DirectorDto> {
 

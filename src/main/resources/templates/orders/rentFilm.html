@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Аренда фильма</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h3 th:text = "'Аренда фильма: ' + ${film.title}"></h3>
+    <form class="needs-validation" method="POST" th:action="@{/orders/rentFilm}" th:object="${rentForm}">
+        <input type="hidden" name="filmId" th:value="${film.id}">
+        <div class="mb-3">
+            <label for="rentPeriod" class="form-label">Количество дней аренды:</label>
+            <input name="rentPeriod" type="number" min="1" class="form-control" id="rentPeriod" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Арендовать</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+    </form>
+</div>
+</body>
+
+</html>
