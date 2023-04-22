@@ -35,7 +35,7 @@ public class MVCUserController {
 
 
   @GetMapping("/registration")
-  public String registration() {
+  public String registration(@ModelAttribute("userForm") UserDto userDto) {
     return "users/registration";
   }
 
@@ -43,18 +43,18 @@ public class MVCUserController {
   public String registration(@ModelAttribute("userForm") UserDto userDto, BindingResult bindingResult) {
     if(userDto.getLogin().equals(adminUserName) || service.getUserByLogin(userDto.getLogin()) != null) {
       bindingResult.rejectValue("login", "error.login", "Такой логин уже существует");
-      return "redirect:/users/registration";
+      return "users/registration";
     }
     if(service.getUserByEmail(userDto.getEmail()) != null) {
       bindingResult.rejectValue("email", "error.email", "Такая почта уже существует");
-      return "redirect:/users/registration";
+      return "users/registration";
     }
     service.create(mapper.toEntity(userDto));
     return "redirect:/login";
   }
 
   @GetMapping("/add-manager")
-  public String addManager() {
+  public String addManager(@ModelAttribute("userForm") UserDto userDto) {
     return "users/addManager";
   }
 
@@ -62,11 +62,11 @@ public class MVCUserController {
   public String addManager(@ModelAttribute("userForm") UserDto userDto, BindingResult bindingResult) {
     if(userDto.getLogin().equals(adminUserName) || service.getUserByLogin(userDto.getLogin()) != null) {
       bindingResult.rejectValue("login", "error.login", "Такой логин уже существует");
-      return "redirect:/users/add-manager";
+      return "users/addManager";
     }
     if(service.getUserByEmail(userDto.getEmail()) != null) {
       bindingResult.rejectValue("email", "error.email", "Такая почта уже существует");
-      return "redirect:/users/add-manager";
+      return "users/addManager";
     }
     service.createManager(mapper.toEntity(userDto));
     return "redirect:/users";
